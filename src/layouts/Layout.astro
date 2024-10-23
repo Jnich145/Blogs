@@ -1,0 +1,50 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="A Call for National Unity: A Plea for Healing" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+	</head>
+	<body class="antialiased">
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		color-scheme: light dark;
+	}
+	
+	html {
+		font-family: 'Merriweather', serif;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	body {
+		margin: 0;
+		min-height: 100vh;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		body {
+			background: #0f172a;
+			color: #f8fafc;
+		}
+	}
+</style>

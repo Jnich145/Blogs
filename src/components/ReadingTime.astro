@@ -1,0 +1,14 @@
+---
+interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+const wordsPerMinute = 200;
+const words = content.trim().split(/\s+/).length;
+const minutes = Math.ceil(words / wordsPerMinute);
+---
+
+<div class="text-sm text-slate-600 mb-8">
+  {minutes} min read
+</div>

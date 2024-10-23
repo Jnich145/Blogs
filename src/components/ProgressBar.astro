@@ -1,0 +1,26 @@
+---
+---
+
+<div class="progress-bar fixed top-0 left-0 w-full h-1 bg-blue-100 z-50">
+  <div id="progress" class="h-full w-0 bg-gradient-to-r from-blue-600 to-blue-800 transition-all duration-150"></div>
+</div>
+
+<script>
+  const progressBar = document.getElementById('progress');
+  
+  window.addEventListener('scroll', () => {
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    
+    if (progressBar) {
+      progressBar.style.width = `${scrolled}%`;
+    }
+  });
+</script>
+
+<style>
+  .progress-bar {
+    backdrop-filter: blur(8px);
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+interface Props {
+  headings: { text: string; slug: string }[];
+}
+
+const { headings } = Astro.props;
+---
+
+<div class="sticky top-8">
+  <nav class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-800/50 backdrop-blur-lg">
+    <h2 class="text-lg font-semibold mb-6 text-slate-900 dark:text-white flex items-center gap-2">
+      <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+      </svg>
+      Contents
+    </h2>
+    <ul class="space-y-3">
+      {headings.map(({ text, slug }) => (
+        <li>
+          <a 
+            href={`#${slug}`} 
+            class="group block py-2 pl-4 text-sm text-slate-600 dark:text-slate-400 border-l-2 border-slate-200 dark:border-slate-700 hover:border-blue-600 dark:hover:border-blue-400 transition-all duration-200"
+          >
+            <span class="inline-block transition-transform duration-200 group-hover:translate-x-1">
+              {text}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</div>
+
+<script>
+  const links = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('h2[id]');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -60% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const link = [...links].find(link => 
+        link.getAttribute('href') === `#${entry.target.id}`
+      );
+      
+      if (entry.isIntersecting) {
+        links.forEach(l => {
+          l.classList.remove('text-blue-600', 'dark:text-blue-400', 'border-blue-600', 'dark:border-blue-400', 'font-medium');
+          l.classList.add('text-slate-600', 'dark:text-slate-400', 'border-slate-200', 'dark:border-slate-700');
+        });
+        
+        link?.classList.remove('text-slate-600', 'dark:text-slate-400', 'border-slate-200', 'dark:border-slate-700');
+        link?.classList.add('text-blue-600', 'dark:text-blue-400', 'border-blue-600', 'dark:border-blue-400', 'font-medium');
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => observer.observe(section));
+</script>

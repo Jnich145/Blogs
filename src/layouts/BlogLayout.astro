@@ -1,0 +1,73 @@
+---
+import Layout from './Layout.astro';
+import DarkModeToggle from '../components/DarkModeToggle.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<Layout title={title}>
+  <DarkModeToggle />
+  
+  <header class="bg-gradient-to-b from-blue-900 via-blue-800 to-blue-900 py-16">
+    <div class="max-w-4xl mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-center text-white mb-8">{title}</h1>
+    </div>
+  </header>
+  
+  <main class="bg-white dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 py-12">
+      <article class="prose prose-lg dark:prose-invert mx-auto">
+        <slot />
+      </article>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style is:global>
+  .prose {
+    max-width: 720px;
+  }
+  .prose h2 {
+    color: #1e293b;
+    font-size: 1.8rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    scroll-margin-top: 2rem;
+  }
+  .prose p {
+    color: #334155;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    font-weight: 400;
+  }
+  .prose strong {
+    color: #1e293b;
+    font-weight: 600;
+  }
+  ::selection {
+    background: #bfdbfe;
+    color: #1e293b;
+  }
+
+  .dark .prose h2 {
+    color: #f8fafc;
+  }
+  .dark .prose p {
+    color: #e2e8f0;
+  }
+  .dark .prose strong {
+    color: #f8fafc;
+  }
+  .dark ::selection {
+    background: #1e293b;
+    color: #f8fafc;
+  }
+</style>

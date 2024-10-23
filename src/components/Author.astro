@@ -1,0 +1,14 @@
+---
+interface Props {
+  name: string;
+  date: string;
+}
+
+const { name, date } = Astro.props;
+---
+
+<div class="flex justify-center items-center gap-4 text-blue-100">
+  <span>{name}</span>
+  <span>•</span>
+  <span>{date}</span>
+</div>
