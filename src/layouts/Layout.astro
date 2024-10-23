@@ -169,7 +169,6 @@ const ogImageURL = new URL(image, Astro.site);
 	}
 
 	function handleTouchMove(e) {
-		e.preventDefault();
 		const touch = e.touches[0];
 		mouseX = touch.clientX;
 		mouseY = touch.clientY;
@@ -178,7 +177,7 @@ const ogImageURL = new URL(image, Astro.site);
 
 	window.addEventListener('resize', resizeCanvas);
 	window.addEventListener('mousemove', handleMouseMove);
-	window.addEventListener('touchmove', handleTouchMove, { passive: false });
+	window.addEventListener('touchmove', handleTouchMove);
 
 	resizeCanvas();
 	createParticles();
