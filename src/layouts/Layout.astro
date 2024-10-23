@@ -8,7 +8,7 @@ interface Props {
 const { 
 	title, 
 	description = "A Call for National Unity: A Plea for Healing",
-	image = "/Blogs/og-image.jpg"  // Make sure this is the correct path
+	image = "/og-image.jpg"  // Remove the '/Blogs' prefix
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
