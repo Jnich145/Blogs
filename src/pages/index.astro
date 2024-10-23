@@ -7,6 +7,7 @@ import ShareButtons from '../components/ShareButtons.astro';
 import ProgressBar from '../components/ProgressBar.astro';
 import BackToTop from '../components/BackToTop.astro';
 import ReadingTime from '../components/ReadingTime.astro';
+import AuthorHeader from '../components/AuthorHeader.astro';
 import { Image } from 'astro:assets';
 
 const headings = [
@@ -71,19 +72,10 @@ This is not just a plea for political change. It is a plea for the soul of our n
   <div class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
     <header class="w-full bg-gradient-to-r from-indigo-700 via-indigo-600 to-indigo-700 px-4 py-12 sm:py-16 bg-opacity-90 dark:bg-opacity-90 backdrop-blur-sm relative z-10">
       <div class="max-w-5xl mx-auto flex flex-col items-center">
-        <Image 
-          src="/Blogs/justin-nichols.jpg"
-          alt="Justin Nichols" 
-          width={96}
-          height={96}
-          class="rounded-full mb-6 object-cover"
-        />
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-white mb-4 leading-tight">
           {pageTitle}
         </h1>
-        <div class="text-center text-indigo-100 text-lg">
-          Author: Justin Nichols | October 23rd, 2024
-        </div>
+        <AuthorHeader name="Justin Nichols" date="October 23rd, 2024" />
       </div>
     </header>
 
