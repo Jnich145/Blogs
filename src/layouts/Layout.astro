@@ -42,8 +42,11 @@ const ogImageURL = new URL(image, Astro.site);
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={ogImageURL} />
 	</head>
-	<body class="antialiased bg-pattern">
-		<slot />
+	<body class="antialiased bg-black">
+		<canvas id="smoke-canvas" class="fixed inset-0 w-full h-full pointer-events-none"></canvas>
+		<div class="relative z-10">
+			<slot />
+		</div>
 	</body>
 </html>
 
@@ -62,16 +65,122 @@ const ogImageURL = new URL(image, Astro.site);
 	body {
 		margin: 0;
 		min-height: 100vh;
+		overflow-x: hidden;
+		background-color: #1a1a1a; /* Darker background */
 	}
 
-	@media (prefers-color-scheme: dark) {
-		body {
-			background: #0f172a;
-			color: #f8fafc;
+	#smoke-background {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: 0;
+	}
+</style>
+
+<script>
+	class SmokeParticle {
+		constructor(x, y) {
+			this.x = x;
+			this.y = y;
+			this.size = Math.random() * 20 + 10; // Increased size
+			this.speedX = Math.random() * 2 - 1; // Increased horizontal speed
+			this.speedY = Math.random() * -2 - 0.5; // Increased upward speed
+			this.opacity = Math.random() * 0.5 + 0.1;
+			this.lifespan = Math.random() * 200 + 100; // Added lifespan
+		}
+
+		update() {
+			this.x += this.speedX;
+			this.y += this.speedY;
+			this.lifespan--;
+			this.opacity -= 0.002;
+			this.size += 0.1;
+		}
+
+		draw(ctx) {
+			ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+			ctx.beginPath();
+			ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+			ctx.fill();
 		}
 	}
 
-	.bg-pattern {
-		background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+	const canvas = document.getElementById('smoke-canvas');
+	const ctx = canvas.getContext('2d');
+	let particles = [];
+	let animationId;
+	let mouseX = 0;
+	let mouseY = 0;
+
+	function resizeCanvas() {
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
 	}
-</style>
+
+	function createParticles() {
+		const particleCount = Math.floor(canvas.width / 5); // Increased particle count
+		for (let i = 0; i < particleCount; i++) {
+			particles.push(new SmokeParticle(
+				Math.random() * canvas.width, 
+				canvas.height + Math.random() * 100 // Start particles below the screen
+			));
+		}
+	}
+
+	function animate() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		particles.forEach((particle, index) => {
+			particle.update();
+			particle.draw(ctx);
+			if (particle.opacity <= 0 || particle.lifespan <= 0 || particle.y < canvas.height * 0.3) { // Remove particles that reach top 30% of screen
+				particles.splice(index, 1);
+			}
+		});
+
+		if (particles.length < 100) {
+			createParticles();
+		}
+
+		animationId = requestAnimationFrame(animate);
+	}
+
+	function disturbSmoke(x, y) {
+		particles.forEach(particle => {
+			const dx = particle.x - x;
+			const dy = particle.y - y;
+			const distance = Math.sqrt(dx * dx + dy * dy);
+			const maxDistance = 150; // Increased influence radius
+
+			if (distance < maxDistance) {
+				const force = (maxDistance - distance) / maxDistance;
+				particle.speedX += dx * force * 0.03; // Increased effect
+				particle.speedY += dy * force * 0.03; // Increased effect
+			}
+		});
+	}
+
+	function handleMouseMove(e) {
+		mouseX = e.clientX;
+		mouseY = e.clientY;
+		disturbSmoke(mouseX, mouseY);
+	}
+
+	function handleTouchMove(e) {
+		e.preventDefault();
+		const touch = e.touches[0];
+		mouseX = touch.clientX;
+		mouseY = touch.clientY;
+		disturbSmoke(mouseX, mouseY);
+	}
+
+	window.addEventListener('resize', resizeCanvas);
+	window.addEventListener('mousemove', handleMouseMove);
+	window.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+	resizeCanvas();
+	createParticles();
+	animate();
+</script>
