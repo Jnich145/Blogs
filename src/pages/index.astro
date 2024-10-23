@@ -6,8 +6,8 @@ import TableOfContents from '../components/TableOfContents.astro';
 import ShareButtons from '../components/ShareButtons.astro';
 import ProgressBar from '../components/ProgressBar.astro';
 import BackToTop from '../components/BackToTop.astro';
-import Author from '../components/Author.astro';
 import ReadingTime from '../components/ReadingTime.astro';
+import { Image } from 'astro:assets';
 
 const headings = [
   { text: "Introduction: The State of Our Nation", slug: "introduction" },
@@ -21,34 +21,41 @@ const headings = [
 const pageTitle = "A Call for National Unity: A Plea for Healing";
 const pageUrl = Astro.url.toString();
 
-const blogContent = `There is a fracture in our nation, a deep and widening chasm that threatens to swallow the very heart of what we stand for. We find ourselves trapped in echo chambers, wrapped in the armor of our political identities, battling neighbors as though they are enemies. It's as if we've forgotten that we are bound by something far greater than political ideology. We are bound by our humanity, by a shared stake in the future of this nation. I ask you—no, I beg you—to stop for a moment and hear this desperate plea for healing, for unity, and for the recognition that our division is our greatest enemy.
+const blogContent = `Introduction: The State of Our Nation
+
+There is a fracture in our nation, a deep and widening chasm that threatens to swallow the very heart of what we stand for. We find ourselves trapped in echo chambers, wrapped in the armor of our political identities, battling neighbors as though they are enemies. It's as if we've forgotten that we are bound by something far greater than political ideology. We are bound by our humanity, by a shared stake in the future of this nation. I ask you—no, I beg you—to stop for a moment and hear this desperate plea for healing, for unity, and for the recognition that our division is our greatest enemy.
 
 In every face you pass on the street, there is a story, a life, a struggle that is uniquely their own, but beneath all those stories lies the same deep yearning—the desire to belong, to be heard, to be valued. This is not a partisan issue, this is not a political game, it is the human condition. We are all bound by the desire to find meaning in the chaos, to carve out a place where we feel whole. Whether you wear a red hat or wave a blue flag, whether you are Black, White, Latino, Asian, or Indigenous, whether you were born into wealth or clawed your way up from nothing, we are all seeking the same fundamental truths.
 
 The Path to Healing: Fostering Cultural Unity
+
 To heal this nation, we must first heal our collective soul. We must begin by recognizing and respecting our differences, not as sources of conflict, but as threads in the rich tapestry of who we are. Unity is not uniformity—it's the recognition that diversity, in all its forms, strengthens us. It is precisely our different perspectives, experiences, and cultures that give this country its resilience. We must stop seeing difference as a threat and start embracing it as the unique opportunity it is.
 
 Yes, it is difficult. We have been conditioned to retreat into our camps, to view those who do not agree with us as the "other." But there is no "other." There is only "us," a fragile, brilliant, flawed species desperately trying to make sense of a world that is often chaotic and unkind. It is time we tear down these walls—the ones we've built in our minds, in our neighborhoods, in our hearts. We must talk to one another, not as adversaries, but as fellow travelers on this brief, wild journey we call life.
 
 Service Beyond the Self: The Power of Shared Purpose
+
 One of the greatest ways to unite a divided people is through shared purpose. Imagine a nation where national service is not just an option, but an opportunity—an opportunity to work alongside people of different races, different political ideologies, different walks of life toward something greater than ourselves. Whether in military service, environmental conservation, or community building, such programs would allow us to see each other not as stereotypes, but as humans—complex, flawed, and deeply deserving of respect.
 
 When we work shoulder to shoulder, when we labor together, we begin to understand that we are not as different as we've been led to believe. It's harder to hate someone when you've built something with them. It's harder to fear someone when you've shared a meal, a hardship, a laugh. These shared experiences could be the glue that binds the wounds of division and helps rebuild a sense of collective purpose in our nation.
 
 A New Narrative: Reclaiming Our Shared Identity
+
 We must reclaim our narrative. The American story is not just about the triumphs of one group, one political party, or one ideology—it is the story of all of us. From the struggles for civil rights to the tireless fight for labor reforms, from the immigrant who comes seeking a better life to the farmer who works the land, this is a story of perseverance and grit, of a people who have time and again fought through the darkest of times to find the light.
 
 We need to expand this narrative to include all voices, to recognize the contributions of those who have been historically marginalized and lift up their stories alongside the rest. By embracing our complete history, the good and the bad, we can foster a more inclusive national identity—one that allows every person, regardless of race, gender, or background, to see themselves as an integral part of this nation.
 
 Addressing Economic Disparities: The Great Equalizer
+
 The economic divides that plague our nation are fueling much of our discontent. Too many feel left behind, forgotten by a system that seems rigged against them. Whether you live in an urban center or a rural community, the struggles are often the same—inequality, lack of opportunity, and a sense that the American Dream is slipping away. To heal, we must close this gap. This is not about handouts or redistribution—it's about providing opportunities, access to education, healthcare, and fair wages, so that every citizen feels they have a chance to thrive.
 
 A Final Plea: Hope for a Better Tomorrow
+
 I know it feels hopeless at times. I know the divisions feel too deep to bridge. But I promise you—there is always hope. Hope lives in the simple acts of kindness we show one another. It lives in the conversations we're brave enough to have, in the bridges we dare to build. Hope lives in us.
 
 We are standing at a crossroads as a nation. We can continue down the path of division, of anger, of bitterness—or we can choose a different way. A way of compassion, of understanding, of unity. It will not be easy. It will require each of us to step outside our comfort zones, to listen when we would rather shout, to love when we would rather turn away.
 
-But it is the only way forward. Our future depends on it. I plead with you, my fellow citizens: let us be the generation that chooses healing over hate, that chooses unity over division, that chooses hope over despair. Let us be the generation that finally realizes the dream of a more perfect union, where we the people means all the people.
+But it is the only way forward. Our future depends on it. I plead with you, my fellow citizens: let us be the generation that chooses healing over hate, that chooses unity over division, that chooses hope over despair. Let us be the generation that finally realizes the dream of a more perfect union, where "we the people" means all the people.
 
 This is not just a plea for political change. It is a plea for the soul of our nation, for the future of our children, and for the possibility of a world where we are truly united. We must believe it is possible. We must make it so.`;
 ---
@@ -56,52 +63,84 @@ This is not just a plea for political change. It is a plea for the soul of our n
 <Layout 
   title="My Awesome Blog"
   description="Explore insights on national unity and healing"
-  image="/custom-og-image.jpg"
+  image="/Blogs/custom-og-image.jpg"
 >
   <DarkModeToggle />
   <ProgressBar />
 
-  <div class="min-h-screen bg-white dark:bg-slate-900">
-    <header class="w-full bg-gradient-to-r from-blue-800 via-blue-600 to-blue-800">
-      <div class="max-w-4xl mx-auto px-4 py-16">
-        <h1 class="text-4xl md:text-5xl font-bold text-center text-white mb-4">
+  <div class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <header class="w-full bg-gradient-to-r from-indigo-700 via-indigo-600 to-indigo-700 px-4 py-12 sm:py-16 bg-opacity-90 dark:bg-opacity-90 backdrop-blur-sm relative z-10">
+      <div class="max-w-5xl mx-auto flex flex-col items-center">
+        <Image 
+          src="/Blogs/justin-nichols.jpg"
+          alt="Justin Nichols" 
+          width={96}
+          height={96}
+          class="rounded-full mb-6 object-cover"
+        />
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-white mb-4 leading-tight">
           {pageTitle}
         </h1>
-        <Author name="Justin Nichols" date="October 23, 2024" />
-        <ReadingTime content={blogContent} />
+        <div class="text-center text-indigo-100 text-lg">
+          Author: Justin Nichols | October 23rd, 2024
+        </div>
       </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 py-12">
-      <div class="lg:grid lg:grid-cols-[1fr_250px] lg:gap-8">
-        <article class="prose prose-lg prose-slate dark:prose-invert max-w-none">
-          <div class="mb-8">
+    <div class="max-w-7xl mx-auto px-4 py-12 sm:py-20 flex">
+      <aside class="w-64 mr-8 hidden lg:block">
+        <TableOfContents headings={headings} />
+      </aside>
+
+      <main class="flex-grow">
+        <article class="prose prose-lg lg:prose-xl prose-slate dark:prose-invert max-w-none bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+          <div class="mb-10">
             <ShareButtons url={pageUrl} title={pageTitle} />
           </div>
 
-          <div class="content">
+          <div class="content space-y-8">
             {blogContent.split('\n\n').map((paragraph, index) => {
               if (paragraph.includes(':')) {
                 const [title, ...content] = paragraph.split('\n');
                 return (
                   <>
-                    <h2 id={headings.find(h => h.text === title)?.slug || `section-${index}`} class="scroll-mt-16">
+                    <h2 id={headings.find(h => h.text === title)?.slug || `section-${index}`} class="scroll-mt-24">
                       {title}
                     </h2>
                     {content.map(p => <p>{p}</p>)}
                   </>
                 );
               }
+              
+              // Highlight specific paragraphs
+              if (paragraph.includes("We are standing at a crossroads as a nation.")) {
+                return <p class="highlight-paragraph">{paragraph}</p>;
+              }
+              
+              // Highlight specific sentences
+              if (paragraph.includes("Hope lives in us.")) {
+                return (
+                  <p>
+                    {paragraph.split('.').map(sentence => 
+                      sentence.trim() === "Hope lives in us" 
+                        ? <span class="highlight-sentence">{sentence}. </span>
+                        : <span>{sentence}. </span>
+                    )}
+                  </p>
+                );
+              }
+              
+              // Add quotation styling
+              if (paragraph.includes('"we the people"')) {
+                return <p class="quote">{paragraph}</p>;
+              }
+              
               return <p>{paragraph}</p>;
             })}
           </div>
         </article>
-
-        <aside class="hidden lg:block">
-          <TableOfContents headings={headings} />
-        </aside>
-      </div>
-    </main>
+      </main>
+    </div>
 
     <BackToTop />
   </div>
@@ -111,22 +150,35 @@ This is not just a plea for political change. It is a plea for the soul of our n
 
 <style>
   .prose {
-    max-width: 720px;
+    max-width: 100%;
   }
   
-  .prose .lead {
-    @apply text-xl font-medium text-slate-900 dark:text-white mb-8;
-  }
-
   .prose p {
-    @apply mb-6 text-slate-700 dark:text-slate-300;
+    @apply mb-6 text-lg sm:text-xl text-gray-800 dark:text-gray-200 leading-relaxed;
   }
 
   .prose h2 {
-    @apply text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6 scroll-mt-16;
+    @apply text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-16 mb-8 leading-tight border-b pb-4 border-gray-200 dark:border-gray-700;
+  }
+
+  .prose a {
+    @apply text-blue-600 dark:text-blue-400 no-underline relative inline-block;
+  }
+
+  .prose a::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400 transform scale-x-0 transition-transform duration-300 ease-in-out;
+  }
+
+  .prose a:hover::after {
+    @apply transform scale-x-100;
   }
 
   ::selection {
-    @apply bg-blue-100 dark:bg-blue-900;
+    @apply bg-blue-100 dark:bg-blue-900 text-slate-900 dark:text-white;
+  }
+
+  .content > p:first-of-type::first-letter {
+    @apply text-5xl font-serif float-left mr-3 mt-1;
   }
 </style>

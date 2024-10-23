@@ -1,0 +1,16 @@
+---
+import { Image } from 'astro:assets';
+
+const authorName = "Justin Nichols";
+---
+
+<div class="flex items-center space-x-4 p-4">
+  <img 
+    src="/justin-nichols.jpg"
+    alt={authorName}
+    width="48"
+    height="48"
+    class="rounded-full object-cover"
+  />
+  <span class="font-semibold text-slate-700 dark:text-slate-300">{authorName}</span>
+</div>

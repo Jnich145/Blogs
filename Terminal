@@ -1,1 +1,16 @@
- 
+# Navigate to your project directory if you're not already there
+cd /path/to/your/project
+
+# Run the build command
+npm run build
+
+# If the build is successful, you should see output similar to this:
+# (The actual output may vary depending on your project structure)
+
+> @example/basics@0.0.1 build
+> astro build
+
+ astro  v4.15.3 Build output: dist/
+ astro  ✓ 3 pages
+ astro  ✓ 0 assets
+ astro  ✓ Build complete
